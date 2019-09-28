@@ -6,12 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import kr.co.itcen.mysite.dao.UserDao;
 import kr.co.itcen.mysite.vo.UserVo;
 import kr.co.itcen.mysite.web.WebUtils;
 import kr.co.itcen.web.mvc.Action;
+
+
 
 public class UpdateAction implements Action {
 
