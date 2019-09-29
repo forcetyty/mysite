@@ -8,9 +8,7 @@
 <head>
 <title>Board</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/board.css"
-	rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <script type="text/javascript">
 	function deleteEvent() {
@@ -51,15 +49,13 @@
 									<img
 										src="${pageContext.servletContext.contextPath }/assets/images/reply.png"
 										style='padding-left:${10 * vo.depth}px' />
-								</c:if> <a
-								href="${pageContext.servletContext.contextPath }/board?a=view&no=${vo.no }">
+							</c:if> <a
+								href="${pageContext.servletContext.contextPath }/board/view/${vo.no }">
 									${vo.title }</a></td>
-
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.reg_date }</td>
-							<td><a
-								href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no }"
+							<td><a href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }"
 								class="del" onclick="return deleteEvent();">삭제</a></td>
 						</tr>
 					</c:forEach>

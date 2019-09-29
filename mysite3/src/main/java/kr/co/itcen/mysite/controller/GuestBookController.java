@@ -48,6 +48,7 @@ public class GuestBookController {
 		return "guestbook/delete";
 	}
 	
+	
 	@RequestMapping(value="/delete/{no}", method = RequestMethod.POST)
 	public String deleteList(@ModelAttribute GuestbookVo vo) {
 		System.out.println("delete 호출");

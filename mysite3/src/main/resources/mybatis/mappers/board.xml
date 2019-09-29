@@ -7,7 +7,7 @@
 	select b.no,
 		   b.title,
 		   u.name,
-		   b.hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s'),
+		   b.hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
 		   b.g_no, b.o_no,
 		   b.depth from user as u, board as b 
 		   where u.no = b.user_no and b.status = 1 
@@ -24,7 +24,7 @@
 ]]>
 </insert>
 
-<select id="viewSelectBoard" parameterType="Long">
+<select id="viewSelectBoard" resultType="BoardViewVo" parameterType="Long" >
 <![CDATA[
 	select b.no, b.title,
 	 u.name , u.email,
@@ -34,5 +34,11 @@
 	     board as b where b.user_no = u.no and b.no = #{no }
 ]]>
 </select>
+
+<update id="deleteUpdate" parameterType="Long">
+<![CDATA[
+update board set status = false where no = #{no }
+]]>
+</update>
 
 </mapper>

@@ -17,17 +17,12 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	public List<BoardUserListVo> getList(int start, int end){
-//		List<BoardUserListVo> result = ArrayList<BoardUserListVo>();
-		
-//		int maxBoardlist = 5;	//최종 게시판 리스트
-//		int firstBoardlist = 1;	//시작 게시판!!!
-//		int pageNum = ((firstBoardlist-1)/5)*5;
-		
+	//리스트
+	public List<BoardUserListVo> getList(int start, int end){		
 		return boardDao.getList(start, end);
-		//return result;
 	}
 	
+	//원글 등록
 	public boolean boardInsert(BoardVo vo) {
 		Boolean result = false;
 		
@@ -40,10 +35,25 @@ public class BoardService {
 		return result;
 	}
 	
+	//글 보임
 	public BoardViewVo viewSelect(Long no) {
 		BoardViewVo vo = boardDao.selectView(no);
-		
 		return vo;
+	}
+	
+	//글 삭제
+	public Boolean deleteUpdate(Long no) {
+		Boolean result = false;
+		
+		if(no != null) {
+			System.out.println("DeleteAction");
+			boardDao.deleteUpdate(no);
+			result = true;
+		}
+		
+		return result;
+		
+		
 	}
 
 }
