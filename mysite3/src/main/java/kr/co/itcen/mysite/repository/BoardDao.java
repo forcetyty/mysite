@@ -293,80 +293,7 @@ public class BoardDao {
 		}
 
 	}
-
-	// View에 선택한 게시글을 표시해주는 Dao Method
-	public BoardViewVo selectView(Long no) {
-		BoardViewVo result = new BoardViewVo();
-
-		// List<BoardUserListVo> result = new ArrayList<BoardUserListVo>();
-		Connection connection = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			connection = dataSource.getConnection();
-
-			/// 제목, 글쓴이, 메일, 등록일, 조회수, 내용
-			// 이 Dao를 통해서 그룹번호, 답글순서, 깊이까지 가져온다
-			String sql = "select b.no, b.title, u.name , u.email, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s'), b.hit, b.contents, b.user_no, b.g_no, b.o_no, b.depth from user as u, board as b where b.user_no = u.no and b.no = ?";
-			pstmt = connection.prepareStatement(sql);
-
-			pstmt.setLong(1, no);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				Long num = rs.getLong(1); // 글 번호
-				String title = rs.getString(2); // 타이틀
-				String name = rs.getString(3); // 이름
-				String email = rs.getString(4); // 이메일
-				String date_format = rs.getString(5); // 날짜
-				Long hit = rs.getLong(6); // 조회수
-				String contents = rs.getString(7); // 글 내용
-				Long user_no = rs.getLong(8); // 유저 번호
-				Long g_no = rs.getLong(9);	//그룹번호
-				Long o_no = rs.getLong(10); //답글 순서
-				Long depth = rs.getLong(11);	//깊이
-
-				BoardViewVo vo = new BoardViewVo();
-
-				vo.setNo(num);
-				vo.setTitle(title);
-				vo.setName(name);
-				vo.setEmail(email);
-				vo.setReg_date(date_format);
-				vo.setHit(hit);
-				vo.setContents(contents);
-				vo.setUser_no(user_no);
-				vo.setG_no(g_no);
-				vo.setO_no(o_no);
-				vo.setDepth(depth);
-
-				result = vo;
-			}
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-
-	}
-
+	
 	// MyBatis 적용완료!!!
 	// 게시판에 글을 출력해주는 Dao
 	public List<BoardUserListVo> getList(int start, int end) {
@@ -378,6 +305,83 @@ public class BoardDao {
 		List<BoardUserListVo> result = sqlSession.selectList("board.getList",serch);
 		return result;
 	}
+
+	// View에 선택한 게시글을 표시해주는 Dao Method
+	public BoardViewVo selectView(Long no) {
+		BoardViewVo result = new BoardViewVo();
+		result = sqlSession.selectOne("board.viewSelectBoard", no);
+		return result; 
+
+//		// List<BoardUserListVo> result = new ArrayList<BoardUserListVo>();
+//		Connection connection = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//
+//		try {
+//			connection = dataSource.getConnection();
+//
+//			/// 제목, 글쓴이, 메일, 등록일, 조회수, 내용
+//			// 이 Dao를 통해서 그룹번호, 답글순서, 깊이까지 가져온다
+//			String sql = "select b.no, b.title, u.name , u.email, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s'), b.hit, b.contents, b.user_no, b.g_no, b.o_no, b.depth from user as u, board as b where b.user_no = u.no and b.no = ?";
+//			pstmt = connection.prepareStatement(sql);
+//
+//			pstmt.setLong(1, no);
+//
+//			rs = pstmt.executeQuery();
+//
+//			while (rs.next()) {
+//
+//				Long num = rs.getLong(1); // 글 번호
+//				String title = rs.getString(2); // 타이틀
+//				String name = rs.getString(3); // 이름
+//				String email = rs.getString(4); // 이메일
+//				String date_format = rs.getString(5); // 날짜
+//				Long hit = rs.getLong(6); // 조회수
+//				String contents = rs.getString(7); // 글 내용
+//				Long user_no = rs.getLong(8); // 유저 번호
+//				Long g_no = rs.getLong(9);	//그룹번호
+//				Long o_no = rs.getLong(10); //답글 순서
+//				Long depth = rs.getLong(11);	//깊이
+//
+//				BoardViewVo vo = new BoardViewVo();
+//
+//				vo.setNo(num);
+//				vo.setTitle(title);
+//				vo.setName(name);
+//				vo.setEmail(email);
+//				vo.setReg_date(date_format);
+//				vo.setHit(hit);
+//				vo.setContents(contents);
+//				vo.setUser_no(user_no);
+//				vo.setG_no(g_no);
+//				vo.setO_no(o_no);
+//				vo.setDepth(depth);
+//
+//				result = vo;
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("error:" + e);
+//		} finally {
+//			try {
+//				if (rs != null) {
+//					rs.close();
+//				}
+//				if (pstmt != null) {
+//					pstmt.close();
+//				}
+//				if (connection != null) {
+//					connection.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		return result;
+
+	}
+
+
 
 	// 원 게시글을 등록하는 Dao
 	// 답글과 댓글 구현 Dao는 Reply Dao에 구현되어 있음

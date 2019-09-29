@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.itcen.mysite.repository.BoardDao;
 import kr.co.itcen.mysite.vo.BoardUserListVo;
+import kr.co.itcen.mysite.vo.BoardViewVo;
 import kr.co.itcen.mysite.vo.BoardVo;
 
 @Service
@@ -37,6 +38,12 @@ public class BoardService {
 		}
 		
 		return result;
+	}
+	
+	public BoardViewVo viewSelect(Long no) {
+		BoardViewVo vo = boardDao.selectView(no);
+		
+		return vo;
 	}
 
 }

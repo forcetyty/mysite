@@ -24,4 +24,15 @@
 ]]>
 </insert>
 
+<select id="viewSelectBoard" parameterType="Long">
+<![CDATA[
+	select b.no, b.title,
+	 u.name , u.email,
+	  date_format(b.reg_date, '%Y-%m-%d %h:%i:%s'),
+	   b.hit, b.contents, b.user_no,
+	    b.g_no, b.o_no, b.depth from user as u,
+	     board as b where b.user_no = u.no and b.no = ?
+]]>
+</select>
+
 </mapper>

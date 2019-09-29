@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.itcen.mysite.service.BoardService;
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.BoardUserListVo;
+import kr.co.itcen.mysite.vo.BoardViewVo;
 import kr.co.itcen.mysite.vo.BoardVo;
 import kr.co.itcen.mysite.vo.UserVo;
 
@@ -94,9 +96,9 @@ public class BoardController {
 	//
 	//pathParam
 	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
-	public String View() {
-		
-		
+	public String View(@PathVariable("no") Long no, Model model) {
+		BoardViewVo vo = boardService.viewSelect(no);
+		model.addAttribute("vo",vo);
 		
 		return "board/view";
 	}
