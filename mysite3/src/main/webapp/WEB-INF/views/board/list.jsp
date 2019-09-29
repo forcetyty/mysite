@@ -93,7 +93,7 @@
 
 				<div class="bottom">
 					<a
-						href="${pageContext.servletContext.contextPath }/board/writeform"
+						href="${pageContext.servletContext.contextPath }/board/write"
 						id="new-book">글쓰기</a>
 				</div>
 			</div>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,8 +51,8 @@ public class BoardController {
 	//로직!!!
 	// - 1. 로그인 되지 않으면 게시판 목록으로 이동
 	// - 2. 로그인 되어 있으면 게시판 글쓰기로 이동
-	@RequestMapping(value = "/writeform", method = RequestMethod.GET)
-	public String writeForm(UserVo vo, HttpSession session) {
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String write(UserVo vo, HttpSession session) {
 		UserVo authUser = (UserVo) session.getAttribute("authUser"); 
 				
 		//session을 통해서 객체의 정보를 가져옴.
@@ -67,14 +68,38 @@ public class BoardController {
 	
 	//인증된 회원이 글쓰기 처리를 하는 로직!!!
 	//이 글쓰기는 원글에 대한 글쓰기임.
+	//write Overroding
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(BoardVo vo) {
+	public String write(@ModelAttribute BoardVo vo, HttpSession session) {
 		//객체는 BoardVo
 		//boardService
+		//dao!!!
 		
-		return null;
+		//Session에 있는 정보를 가져와서 사용자에 따른 글쓰기가 가능하게 구현
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		session.setAttribute("authUser", authUser);
+		
+		vo.setUser_no(authUser.getNo());
+		
+		System.out.println("write Action 발생!!!");
+		System.out.println("userNo : " + vo.getUser_no());
+		System.out.println("Contents :" + vo.getContents());
+		
+		boardService.boardInsert(vo);
+	
+		//view - no!!!
+		return "redirect:/board/view/"+vo.getNo();//
 	}
 	
+	//
+	//pathParam
+	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
+	public String View() {
+		
+		
+		
+		return "board/view";
+	}
 	
 	
 	

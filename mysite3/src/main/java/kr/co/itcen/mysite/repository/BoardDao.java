@@ -387,12 +387,16 @@ public class BoardDao {
 		
 		count = sqlSession.insert("board.insertBoard", vo);
 		
-		//if(count == 1)
+		
+		if(count == 1) {
+			result = true;
+		}
 		
 		return result;
+		
 		//sqlSession.insert("board.insertBoard", vo);
 		
-//		Boolean result = false;
+//		Boolean result = false;	
 //
 //		Connection connection = null;
 //		PreparedStatement pstmt = null;

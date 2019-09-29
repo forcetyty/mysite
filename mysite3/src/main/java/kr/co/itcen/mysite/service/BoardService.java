@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.itcen.mysite.repository.BoardDao;
 import kr.co.itcen.mysite.vo.BoardUserListVo;
+import kr.co.itcen.mysite.vo.BoardVo;
 
 @Service
 public class BoardService {
@@ -23,9 +24,19 @@ public class BoardService {
 //		int pageNum = ((firstBoardlist-1)/5)*5;
 		
 		return boardDao.getList(start, end);
-		
-		
 		//return result;
+	}
+	
+	public boolean boardInsert(BoardVo vo) {
+		Boolean result = false;
+		
+		if(vo != null) {
+			boardDao.insertBoardDao(vo);
+			System.out.println("BoardInsert");
+			result = true;
+		}
+		
+		return result;
 	}
 
 }
