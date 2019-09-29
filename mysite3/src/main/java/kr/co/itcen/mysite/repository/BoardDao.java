@@ -452,21 +452,6 @@ public class BoardDao {
 //		return result;
 	}
 
-//	// DataBase와 연결시키는 객체
-//	private Connection getConnection() throws SQLException {
-//		Connection connection = null;
-//
-//		try {
-//			Class.forName("org.mariadb.jdbc.Driver");
-//
-//			String url = "jdbc:mariadb://192.168.1.81:3306/webdb?characterEncoding=utf8";
-//			connection = DriverManager.getConnection(url, "webdb", "webdb");
-//
-//		} catch (ClassNotFoundException e) {
-//			System.out.println("Fail to Loading Driver:" + e);
-//		}
-//
-//		return connection;
-//	}
+
 
 }

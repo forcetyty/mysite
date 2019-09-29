@@ -98,6 +98,7 @@ public class BoardController {
 	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
 	public String View(@PathVariable("no") Long no, Model model) {
 		BoardViewVo vo = boardService.viewSelect(no);
+		
 		model.addAttribute("vo",vo);
 		
 		return "board/view";
