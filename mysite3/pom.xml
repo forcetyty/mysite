@@ -94,6 +94,7 @@
 
 	<build>
 		<finalName>mysite3</finalName>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
