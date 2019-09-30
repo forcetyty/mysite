@@ -222,44 +222,21 @@ public class BoardDao {
 
 	}
 
+	//MyBatis
 	// View에서 Modify에 들어간후 Modify에서 수정을 했을때의 동작
 	// Update를 동작하게 하는 화면!!!
-	public void updateModify(BoardVo vo) {
-
-		// Update해주어 되는 값
-		// 제목 //내용 //등록일자
-
-		// 데이터베이스와 연결해주는 기능
-		Connection connection = null; // 연결객체
-		PreparedStatement pstmt = null; // 운반객체
-
-		try {
-			connection = dataSource.getConnection();
-			// 업데이트 되는 항목 title / contents / reg_date
-			String sql = "update board set title = ?, contents = ?, reg_date = now() where no = ?";
-			pstmt = connection.prepareStatement(sql);
-
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContents());
-			pstmt.setLong(3, vo.getNo());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public Boolean updateModify(BoardVo vo) {
+		
+		Boolean result = false;
+		int count = 0;
+		
+		count = sqlSession.update("board.updateModify", vo);
+	
+		if(count == 1) {
+			result = true;
 		}
+		
+		return result;
 	}
 	
 	//MyBatis 적용완료!!!

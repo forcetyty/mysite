@@ -109,7 +109,7 @@ public class BoardController {
 	// 글 삭제 기능
 	// 인증된 회원, 본인이 아니면 삭제가 안되게 처리
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
-	public String delete(@PathVariable("no") Long no,HttpSession session) {
+	public String delete(@PathVariable("no") Long no, HttpSession session) {
 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		session.setAttribute("authUser", authUser);
@@ -120,23 +120,52 @@ public class BoardController {
 			System.out.println("로그인 안됨 / 리스트 호출 /");
 			return "/user/login";
 		}
-		
+
 		BoardViewVo vo = boardService.viewSelect(no);
-		
-		if(vo.getUser_no() == authUser.getNo()) {
+
+		if (vo.getUser_no() == authUser.getNo()) {
 			System.out.println("delete Action");
 			boardService.deleteUpdate(no);
 			return "redirect:/board";
-		}else {
+		} else {
 			return "/user/login";
 		}
 	}
-	
+
 	// 글 수정기능
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
-	public String modify() {
-		return null;
+	public String modify(@PathVariable("no") Long no, HttpSession session, Model model) {
 		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		session.setAttribute("authUser", authUser);
+		BoardViewVo vo = boardService.viewSelect(no);
+		
+		// session을 통해서 객체의 정보를 가져옴.
+		if (authUser == null) {
+			// return "board/list";
+			System.out.println("로그인 안됨 / 리스트 호출 /");
+			return "/user/login";
+		}
+
+		model.addAttribute("vo", vo);		
+		return "board/modify";
+	}
+	
+	//
+	@RequestMapping(value = "/modifyAction/{no}", method = RequestMethod.POST)
+	public String modifyAction(@PathVariable("no") Long no, @ModelAttribute BoardVo vo) {
+		System.out.println("modify 실행!!!");
+		
+		System.out.println(vo.getTitle());
+		System.out.println(vo.getNo());
+		System.out.println(vo.getContents());
+
+		boardService.updateModify(vo);
+		
+		System.out.println("no: " + no);
+		
+		//return "redirect:/board/view/"+no;
+		return "redirect:/board/view/"+vo.getNo();
 	}
 
 }

@@ -49,7 +49,7 @@
 						href="${pageContext.servletContext.contextPath }/board?a=replyform&g_no=${vo.g_no}&o_no=${vo.o_no}&depth=${vo.depth}">답글</a>
 					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>
 					<a
-						href="${pageContext.servletContext.contextPath }/board?a=modifyform&no=${vo.no}">글수정</a>
+						href="${pageContext.servletContext.contextPath }/board/modify/${vo.no}">글수정</a>
 				</div>
 			</div>
 		</div>
