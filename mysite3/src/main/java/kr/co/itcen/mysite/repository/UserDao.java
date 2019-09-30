@@ -142,12 +142,14 @@ public class UserDao {
 		return count == 1;
 	}
 
-	public UserVo get(Long no) {
-		return sqlSession.selectOne("user.getByNo", no);
+	public Object get(String email) {
+		//return sqlSession.selectOne("user.getByNo", email);
+		UserVo result = sqlSession.selectOne("user.getByEmail", email);
+		return result;
 		
 	}
 
-	public UserVo get(UserVo vo) throws UserDaoException {
+	public UserVo get(UserVo vo) {
 		UserVo result = sqlSession.selectOne("user.getByEmailAndPassword1", vo);
 		return result;
 	}

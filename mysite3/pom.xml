@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>mysite3</artifactId>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<org.springframework-version>4.3.20.RELEASE</org.springframework-version>
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
@@ -77,13 +77,22 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcloverslf4j.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
-		</dependency>	
+		</dependency>
+
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>mysite3</finalName>
 		<plugins>
@@ -91,12 +100,12 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
-					<url>http://192.168.0.245/manager/text</url>
+					<url>http://192.168.1.81/manager/text</url>
 					<path>/mysite3</path>
 					<username>admin</username>
 					<password>admin</password>
 				</configuration>
 			</plugin>
-		</plugins>		
-	</build>	
+		</plugins>
+	</build>
 </project>
