@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StopWatch;
 
 import kr.co.itcen.mysite.exception.UserDaoException;
 import kr.co.itcen.mysite.vo.UserVo;
@@ -29,8 +30,8 @@ public class UserDao {
 
 	public Boolean update(UserVo vo) {
 		Boolean result = false;
-		int count = sqlSession.update("user.update",vo);
-		
+		int count = sqlSession.update("user.update", vo);
+
 		return count == 1;
 	}
 
@@ -137,16 +138,18 @@ public class UserDao {
 	}
 
 	public Boolean insert(UserVo vo) throws UserDaoException {
+
 		int count = sqlSession.insert("user.insert", vo);
 		System.out.println(vo);
-		return count == 1;
+		return count == 1; 
+
 	}
 
 	public Object get(String email) {
-		//return sqlSession.selectOne("user.getByNo", email);
+		// return sqlSession.selectOne("user.getByNo", email);
 		UserVo result = sqlSession.selectOne("user.getByEmail", email);
 		return result;
-		
+
 	}
 
 	public UserVo get(UserVo vo) {
