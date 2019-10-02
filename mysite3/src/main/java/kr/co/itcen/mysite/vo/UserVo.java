@@ -1,13 +1,31 @@
 package kr.co.itcen.mysite.vo;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVo {
 
 	private Long no;
+
+	@NotEmpty
+	@Length(min = 2, max = 8)
 	private String name;
+
+	@NotEmpty
+	@Email
 	private String email;
+
 	private String password;
 	private String gender;
 	private String join_date;
+
+	
+	
+
+	public UserVo() {
+		this.gender = "female";
+	}
 
 	public Long getNo() {
 		return no;
@@ -55,6 +73,10 @@ public class UserVo {
 
 	public void setJoin_date(String join_date) {
 		this.join_date = join_date;
+	}
+
+	public String[] getGenders() {
+		return new String[] {"male", "female"};
 	}
 
 	@Override

@@ -1,16 +1,18 @@
 package kr.co.itcen.mysite.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.UserVo;
@@ -28,15 +30,29 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String join() {
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 
 	// 오버로드
+	// vailding 적용
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String join(@ModelAttribute UserVo vo) {
+	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
+		
+		
+		
+		if(result.hasErrors()) {
+//			List<ObjectError> list = result.getAllErrors();
+//			for(ObjectError error : list) {
+//				System.out.println(error);
+//			}
+			//getModel에서 map 반환!!!!
+			//getModel을 사용하지 않고, Map으로 받을수도 있다.
+			model.addAllAttributes(result.getModel());
+			return "user/join";
+		}
+		
 		userService.join(vo);
-
 		return "redirect:/user/joinsuccess";
 	}
 
@@ -45,30 +61,31 @@ public class UserController {
 		return "user/login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(UserVo vo, HttpSession session, Model model) {
-		UserVo userVo = userService.getUser(vo);
+	//interceptor 적용했을시 미사용하게 되는 코드
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public String login(UserVo vo, HttpSession session, Model model) {
+//		UserVo userVo = userService.getUser(vo);
+//
+//		if (userVo == null) {
+//			model.addAttribute("result", "fail");
+//			return "user/loing";
+//		}
+//
+//		// 로그인 처리
+//		session.setAttribute("authUser", userVo);
+//		return "redirect:/";
+//	}
 
-		if (userVo == null) {
-			model.addAttribute("result", "fail");
-			return "user/loing";
-		}
-
-		// 로그인 처리
-		session.setAttribute("authUser", userVo);
-		return "redirect:/";
-	}
-
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
-		// 접근 제어
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser != null) {
-			session.removeAttribute("authUser");
-			session.invalidate();
-		}
-		return "redirect:/";
-	}
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public String logout(HttpSession session) {
+//		// 접근 제어
+//		UserVo authUser = (UserVo) session.getAttribute("authUser");
+//		if (authUser != null) {
+//			session.removeAttribute("authUser");
+//			session.invalidate();
+//		}
+//		return "redirect:/";
+//	}
 
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)

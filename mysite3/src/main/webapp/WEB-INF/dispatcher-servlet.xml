@@ -14,42 +14,77 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	<aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy />
 
 	<!-- validator, conversionService, messageConverter瑜??먮룞?쇰줈 ?깅줉 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-			    <property name="supportedMediaTypes">
-			        <list>
-			             <value>text/html; charset=UTF-8</value>
-			        </list>
-			    </property>
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
 			</bean>
-			
-			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-			   <property name="supportedMediaTypes">
-			       <list>
-			            <value>application/json; charset=UTF-8</value>
-			        </list>
-			   </property>
+
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	
-	<!-- ?쒕툝由?而⑦뀒?대꼫???뷀뤃???쒕툝由??꾩엫 ?몃뱾??-->
-	<mvc:default-servlet-handler/>
 
+	<!-- ?쒕툝由?而⑦뀒?대꼫???뷀뤃???쒕툝由??꾩엫 ?몃뱾?? -->
+	<mvc:default-servlet-handler />
+
+	<!-- Interceptor -->
+	<mvc:interceptors>
+		
+		<!-- interceptor 예제 코드 
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**"/>
+			<bean class="kr.co.itcen.mysite.interceptor.MyInterceptor02"/>
+		</mvc:interceptor> -->
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="kr.co.itcen.mysite.security.LoginInterceptor"/>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="kr.co.itcen.mysite.security.LogoutInterceptor"/>
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+	
 	<!-- View Resolver -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
-	
+
+	<!-- 6. MessageSource -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+			</list>
+		</property>
+	</bean>
 
 	<context:annotation-config />
-	<context:component-scan base-package="kr.co.itcen.mysite.controller, kr.co.itcen.mysite.exception" />
+	<context:component-scan
+		base-package="kr.co.itcen.mysite.controller, kr.co.itcen.mysite.exception" />
 </beans>
