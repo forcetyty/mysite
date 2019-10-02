@@ -47,4 +47,10 @@ update board set title = #{title }, contents = #{contents }, reg_date = now() wh
 ]]>
 </update>
 
+<update id="hitUpdate" parameterType="Long">
+<![CDATA[
+update board set hit = hit + 1 where no = #{no } 
+]]>
+</update>
+
 </mapper>

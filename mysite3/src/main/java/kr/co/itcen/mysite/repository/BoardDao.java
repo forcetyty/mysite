@@ -190,35 +190,47 @@ public class BoardDao {
 
 
 	// Hit Update 처리해주는 Dao
-	public void hitUpdate(Long vo) {
-		Connection connection = null; // 연결객체
-		PreparedStatement pstmt = null; // 운반객체
-
-		try {
-			connection = dataSource.getConnection();
-			// 업데이트 되는 항목 hit
-			String sql = "update board set hit = hit + 1 where no = ?";
-
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, vo); // 게시판 글에 대한 업데이트 처리
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public Boolean  hitUpdate(Long vo) {
+		
+		Boolean result = false;
+		int count = 0;
+		
+		count = sqlSession.update("board.hitUpdate", vo);
+	
+		if(count == 1) {
+			result = true;
 		}
+		
+		return result;
+		
+//		Connection connection = null; // 연결객체
+//		PreparedStatement pstmt = null; // 운반객체
+//
+//		try {
+//			connection = dataSource.getConnection();
+//			// 업데이트 되는 항목 hit
+//			String sql = "update board set hit = hit + 1 where no = ?";
+//
+//			pstmt = connection.prepareStatement(sql);
+//			pstmt.setLong(1, vo); // 게시판 글에 대한 업데이트 처리
+//
+//			pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			System.out.println("error:" + e);
+//		} finally {
+//			try {
+//
+//				if (pstmt != null) {
+//					pstmt.close();
+//				}
+//				if (connection != null) {
+//					connection.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 	}
 

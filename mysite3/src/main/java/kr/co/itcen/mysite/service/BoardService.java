@@ -15,7 +15,7 @@ public class BoardService {
 
 	@Autowired
 	private BoardDao boardDao;
-
+	
 	// 리스트
 	public List<BoardUserListVo> getList(int start, int end) {
 		return boardDao.getList(start, end);
@@ -63,7 +63,8 @@ public class BoardService {
 			result = true;
 		}
 		return result;
-
 	}
+	
+	
 
 }
