@@ -16,6 +16,21 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+	//조회수 업데이트
+	public boolean hitUpdate(Long no) {
+		Boolean result = false;
+
+		if (no != null) {
+			System.out.println("Hit Update Event");
+			boardDao.hitUpdate(no);
+			result = true;
+		}
+
+		return result;
+		
+	}
+	
+	
 	// 리스트
 	public List<BoardUserListVo> getList(int start, int end) {
 		return boardDao.getList(start, end);

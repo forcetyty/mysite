@@ -73,52 +73,7 @@ public class BoardDao {
 		return vo;
 	}
 	
-		// 전체 게시글의 수를 가져오는 쿼리
-		public BoardCountVo countList(String kwd) {
-			Connection connection = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			BoardCountVo vo = new BoardCountVo();
-			
-			try {
-				connection = dataSource.getConnection();
-			
-				String sql = "select count(*) as num from board where status = 1 and like (board = ? or title = ?)";
-				pstmt = connection.prepareStatement(sql);
-				
-				//Like 검색어 핵심요소
-				pstmt.setString(1, "%" + kwd + "%");
-				pstmt.setString(2, "%" + kwd + "%");
 
-				rs = pstmt.executeQuery();
-				
-				while (rs.next()) {
-				int num = rs.getInt(1);
-				
-				vo.setCountRow(num);
-				}
-			} catch (SQLException e) {
-				System.out.println("error:" + e);
-			} finally {
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-					if (pstmt != null) {
-						pstmt.close();
-					}
-					if (connection != null) {
-						connection.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			return vo;
-		}
-	
 	// title과 contents로 검색가능하게 하는 Dao
 	public List<BoardSerchVo> serchList(String kwd) {
 		
@@ -189,6 +144,7 @@ public class BoardDao {
 
 
 
+	// My Batis 적용완료
 	// Hit Update 처리해주는 Dao
 	public Boolean  hitUpdate(Long vo) {
 		
@@ -202,36 +158,6 @@ public class BoardDao {
 		}
 		
 		return result;
-		
-//		Connection connection = null; // 연결객체
-//		PreparedStatement pstmt = null; // 운반객체
-//
-//		try {
-//			connection = dataSource.getConnection();
-//			// 업데이트 되는 항목 hit
-//			String sql = "update board set hit = hit + 1 where no = ?";
-//
-//			pstmt = connection.prepareStatement(sql);
-//			pstmt.setLong(1, vo); // 게시판 글에 대한 업데이트 처리
-//
-//			pstmt.executeUpdate();
-//
-//		} catch (SQLException e) {
-//			System.out.println("error:" + e);
-//		} finally {
-//			try {
-//
-//				if (pstmt != null) {
-//					pstmt.close();
-//				}
-//				if (connection != null) {
-//					connection.close();
-//				}
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-
 	}
 
 	//MyBatis

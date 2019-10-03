@@ -101,6 +101,7 @@ public class BoardController {
 		System.out.println("View Page");
 
 		BoardViewVo vo = boardService.viewSelect(no);
+		boardService.hitUpdate(no);
 
 		model.addAttribute("vo", vo);
 		return "board/view";

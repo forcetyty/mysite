@@ -7,7 +7,7 @@
 	select b.no,
 		   b.title,
 		   u.name,
-		   b.hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
+		   b.hit as hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
 		   b.g_no, b.o_no,
 		   b.depth from user as u, board as b 
 		   where u.no = b.user_no and b.status = 1 
