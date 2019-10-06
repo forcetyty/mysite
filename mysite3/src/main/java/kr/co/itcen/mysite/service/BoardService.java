@@ -16,6 +16,8 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+
+	
 	//조회수 업데이트
 	public boolean hitUpdate(Long no) {
 		Boolean result = false;
@@ -32,8 +34,8 @@ public class BoardService {
 	
 	
 	// 리스트
-	public List<BoardUserListVo> getList(int start, int end) {
-		return boardDao.getList(start, end);
+	public List<BoardUserListVo> getList(int start, int end, String kwd) {
+		return boardDao.getList(start, end, kwd);
 	}
 
 	// 원글 등록

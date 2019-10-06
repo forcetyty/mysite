@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
+
 <select id="getList" resultType="BoardUserListVo" parameterType="map">
 <![CDATA[
 	select b.no,
@@ -10,11 +11,17 @@
 		   b.hit as hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
 		   b.g_no, b.o_no,
 		   b.depth from user as u, board as b 
-		   where u.no = b.user_no and b.status = 1 
-		   order by b.g_no desc, b.o_no asc limit #{startNum }, #{endNum }
+		   where u.no = b.user_no and b.status = 1
+]]>
+ <if test = "kwd.length() > 0">
+ <![CDATA[
+	and ( b.title like concat('%',#{kwd },'%')) or (b.contents like concat('%',#{kwd },'%')) 
+ ]]>
+</if>
+<![CDATA[
+	order by b.g_no desc, b.o_no asc limit #{startNum }, #{endNum }
 ]]>
 </select>
-
 
 <insert id="insertBoard" parameterType="boardvo">
 <![CDATA[
@@ -29,7 +36,7 @@
 	select b.no, b.title,
 	 u.name , u.email,
 	  date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
-	   b.hit, b.contents, b.user_no,
+	   b.hit as hit, b.contents, b.user_no,
 	    b.g_no, b.o_no, b.depth from user as u,
 	     board as b where b.user_no = u.no and b.no = #{no }
 ]]>
@@ -52,5 +59,7 @@ update board set title = #{title }, contents = #{contents }, reg_date = now() wh
 update board set hit = hit + 1 where no = #{no } 
 ]]>
 </update>
+
+
 
 </mapper>

@@ -21,10 +21,10 @@
 		<div id="content">
 			<div id="board">
 				<form id="search_form"
-					action="${pageContext.servletContext.contextPath }/board?a=serach"
-					method="post">
-					<input type="text" id="kwd" name="kwd" value=""> <input
-						type="submit" value="찾기">
+					action="${pageContext.servletContext.contextPath }/board/serach"
+					method="GET">
+					<input type="text" id="kwd" name="kwd" value=""> 
+					<input type="submit" value="찾기">
 				</form>
 
 				<table class="tbl-ex">

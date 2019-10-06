@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.co.itcen.mysite.service.BoardService;
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.BoardUserListVo;
 import kr.co.itcen.mysite.vo.BoardViewVo;
 import kr.co.itcen.mysite.vo.BoardVo;
 import kr.co.itcen.mysite.vo.UserVo;
+
+/*
+ * BoardSerchVo
+ * 별도로 분리되어 있던 검색기능을 list와 결합하여 
+ * 불필요한 BoardSerchVo 를 걷어냄
+ */
 
 @Controller
 @RequestMapping("/board")
@@ -30,14 +35,17 @@ public class BoardController {
 
 	@Autowired
 	private UserService userService;
-
+	
 	// 게시판에 목록을 뿌려주는 기능
-	@RequestMapping(value = { "", "list" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "", "list", "/serach"  }, method = RequestMethod.GET)
 	public String getBoardlist(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "kwd", required = false, defaultValue = "") String kwd,
 			Model model) {
+		
 		System.out.println("Board List 출력");
-
-		List<BoardUserListVo> list = boardService.getList((page - 1) * 5, 5);
+		System.out.println("검색어 확인 :" + kwd);
+		
+		List<BoardUserListVo> list = boardService.getList((page - 1) * 5, 5, kwd);
 
 		int pageNum = ((page - 1) / 5) * 5;
 
