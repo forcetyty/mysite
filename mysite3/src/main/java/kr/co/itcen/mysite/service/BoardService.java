@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.itcen.mysite.repository.BoardDao;
+import kr.co.itcen.mysite.repository.ReplyDao;
 import kr.co.itcen.mysite.vo.BoardUserListVo;
 import kr.co.itcen.mysite.vo.BoardViewVo;
 import kr.co.itcen.mysite.vo.BoardVo;
@@ -16,7 +17,35 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+	@Autowired
+	private ReplyDao replyDao;
+	
+	//원글에 대한 답글
+	public boolean replyInsert(BoardVo vo) {
+		Boolean result = false;
 
+		if (vo != null) {
+			replyDao.replyInsert(vo);
+			System.out.println("ReplyInsert");
+			result = true;
+		}
+		return result;
+	}
+	
+	//답글에 대한 답글
+	public boolean reply2Insert(BoardVo vo) {
+		Boolean result = false;
+
+		if (vo != null) {
+			replyDao.reply2Insert(vo);
+			System.out.println("ReplyInsert");
+			result = true;
+		}
+		return result;
+	}
+	
+	
+	
 	
 	//조회수 업데이트
 	public boolean hitUpdate(Long no) {
@@ -29,7 +58,6 @@ public class BoardService {
 		}
 
 		return result;
-		
 	}
 	
 	

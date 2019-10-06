@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 import kr.co.itcen.mysite.service.BoardService;
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.BoardUserListVo;
@@ -36,8 +38,74 @@ public class BoardController {
 	@Autowired
 	private UserService userService;
 	
+	//답글
+	@RequestMapping(value = "/replyform/g_no={g_no}&o_no={o_no}&depth={depth}", method = RequestMethod.GET)
+	public String replyForm(@PathVariable("g_no") long g_no,
+			@PathVariable("o_no") long o_no,
+			@PathVariable("depth") long depth,
+			HttpSession session,
+			Model model) {
+		
+		System.out.println(g_no);
+		System.out.println(o_no);
+		System.out.println(depth);
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		BoardVo vo = new BoardVo();
+		
+		vo.setG_no(g_no);
+		vo.setO_no(o_no);
+		vo.setDepth(depth);
+		
+		model.addAttribute("vo", vo);
+		
+		// session을 통해서 객체의 정보를 가져옴.
+		if (authUser == null) {
+			// return "board/list";
+			System.out.println("reply - 로그인 안됨 / 리스트 호출 /");
+			return "/user/login";
+		}
+		
+		session.setAttribute("authUser", authUser);
+		return "board/replywrite";
+	}
+	
+	//답글 처리 로직
+	@RequestMapping(value = "/reply", method = RequestMethod.POST)
+	public String reply(@ModelAttribute BoardVo vo, HttpSession session) {
+		
+		// Session에 있는 정보를 가져와서 사용자에 따른 글쓰기가 가능하게 구현
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		session.setAttribute("authUser", authUser);
+		
+		System.out.println("reply Action");
+
+		vo.setUser_no(authUser.getNo());
+		
+		System.out.println("답글 처리 로직 확인 값!!!");
+		System.out.println(vo.getG_no());
+		System.out.println(vo.getO_no());
+		System.out.println(vo.getDepth());
+		System.out.println(vo.getTitle());
+		System.out.println(vo.getDepth());
+		System.out.println(vo.getContents());
+		System.out.println(vo.getUser_no());
+		System.out.println("---------------------");
+		
+		if(vo.getO_no() == 0) {
+			System.out.println("답글 실행");
+			boardService.replyInsert(vo);
+		}else {
+			System.out.println("댓글 실행");
+			boardService.reply2Insert(vo);
+		}
+		
+		return "redirect:/board";
+	}
+	
 	// 게시판에 목록을 뿌려주는 기능
-	@RequestMapping(value = { "", "list", "/serach"  }, method = RequestMethod.GET)
+	@RequestMapping(value = { "", "list", "/serach"  } , method = RequestMethod.GET)
 	public String getBoardlist(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "kwd", required = false, defaultValue = "") String kwd,
 			Model model) {
@@ -83,8 +151,6 @@ public class BoardController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(@ModelAttribute BoardVo vo, HttpSession session) {
 		// 객체는 BoardVo
-		// boardService
-		// dao!!!
 
 		// Session에 있는 정보를 가져와서 사용자에 따른 글쓰기가 가능하게 구현
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
@@ -160,7 +226,7 @@ public class BoardController {
 		return "board/modify";
 	}
 	
-	//
+	//수정
 	@RequestMapping(value = "/modifyAction/{no}", method = RequestMethod.POST)
 	public String modifyAction(@PathVariable("no") Long no, @ModelAttribute BoardVo vo) {
 		System.out.println("modify 실행!!!");

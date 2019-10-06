@@ -17,13 +17,15 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post"
-					action="${pageContext.servletContext.contextPath }/board">
-					<input type="hidden" name="a" value="reply">
+				<form class="board-form" method="post" 
+				action="${pageContext.servletContext.contextPath }/board/reply">
+					<!-- <input type="hidden" name="a" value="reply"> -->
+					
 					<!-- 삽질... ㅠ ㅜ  -->
-					<input type="hidden" name="g_no" value="${vo1.g_no }"> <input
-						type="hidden" name="o_no" value="${vo1.o_no }"> <input
-						type="hidden" name="depth" value="${vo1.depth }">
+				    <input type="hidden" name="g_no" value="${vo.g_no }"> 
+					<input type="hidden" name="o_no" value="${vo.o_no }"> 
+					<input type="hidden" name="depth" value="${vo.depth }">
+						
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -34,11 +36,12 @@
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td><textarea id="content" name="content"></textarea></td>
+							<td><textarea id="content" name="contents"></textarea></td>
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/board">취소</a> <input type="submit" value="등록">
+						<a href="/board">취소</a> 
+						<input type="submit" value="등록"/>
 					</div>
 				</form>
 			</div>

@@ -15,7 +15,7 @@
 	<context:annotation-config/>
 
 	<context:component-scan
-		base-package="kr.co.itcen.mysite.repository,kr.co.itcen.mysite.service,                kr.co.itcen.mysite.aspect">
+		base-package="kr.co.itcen.mysite.repository, kr.co.itcen.mysite.service, kr.co.itcen.mysite.aspect">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Repository" />
 
