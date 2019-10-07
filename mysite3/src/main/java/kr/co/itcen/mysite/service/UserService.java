@@ -14,30 +14,65 @@ public class UserService {
 
 	@Autowired
 	private UserDao userDao;
-
+	
 	public void join(UserVo vo) {
-		// TODO Auto-generated method stub
 		userDao.insert(vo);
 	}
 
 	public UserVo getUser(UserVo vo) {
-		// TODO Auto-generated method stub
 		return userDao.get(vo);
-
 	}
 
-	// 회원정보를 가져오는 기능
-	public UserVo selectList(Long memberNo) {
-		return userDao.selectUpdate(memberNo);
-	}
-
-	// 회원정보수정
-	public void updateList(UserVo vo) {
-		userDao.updateUser(vo);
-	}
-	
 	public Boolean existUser(String email) {
 		return userDao.get(email) != null;
 	}
+
+	public UserVo getUser(Long no) {
+		return userDao.get(no);
+	}
+	
+	// 회원정보를 가져오는 기능
+	public UserVo selectList(Long memberNo) {
+		return userDao.get(memberNo);
+	}
+	
+	public void update(UserVo vo) {
+		userDao.update(vo);
+	}
+
+	// 회원정보수정
+//	public void updateList(UserVo vo) {
+//		userDao.update(vo);
+//	}
+
+//	public void join(UserVo vo) {
+//		// TODO Auto-generated method stub
+//		userDao.insert(vo);
+//	}
+//
+//	public UserVo getUser(UserVo vo) {
+//		// TODO Auto-generated method stub
+//		return userDao.get(vo);
+//
+//	}
+//
+//	// 회원정보를 가져오는 기능
+//	public UserVo selectList(Long memberNo) {
+//		return userDao.update(memberNo);
+//	}
+//
+//	// 회원정보수정
+//	public void updateList(UserVo vo) {
+//		userDao.update(vo);
+//	}
+//	
+//	public Boolean existUser(String email) {
+//		return userDao.get(email) != null;
+//	}
+//
+//	public UserVo getUser(Long no) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

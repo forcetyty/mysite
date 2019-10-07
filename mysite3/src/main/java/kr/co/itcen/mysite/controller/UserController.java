@@ -1,21 +1,21 @@
 package kr.co.itcen.mysite.controller;
 
-import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.itcen.mysite.security.Auth;
+import kr.co.itcen.mysite.security.AuthUser;
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.UserVo;
+
 
 @Controller
 @RequestMapping("/user")
@@ -37,7 +37,8 @@ public class UserController {
 	// 오버로드
 	// vailding 적용
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
+	public String join(@ModelAttribute @Valid UserVo vo,
+			BindingResult result, Model model) {
 		
 		
 		
@@ -86,18 +87,64 @@ public class UserController {
 //		}
 //		return "redirect:/";
 //	}
-
 	
+	//@Auth(role = Role.ADMIN)
+	//접근제어 - intercepter
+	//@Auth("USER")
+	@Auth("USER")
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateForm(UserVo vo, HttpSession session) {
-		System.out.println("회원정보 수정");
+	public String update( @AuthUser UserVo authUser, Model model) {
 		
-		// 접근 제어
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		userService.selectList(authUser.getNo());
-				
+		//ACL //횡단관심!!!
+		//UserVo authUser = (UserVo)session.getAttribute("authUser");
+		//Long no = authUser.getNo();
+		//UserVo userVo = userService.getUser(no);
+	
+		authUser = userService.getUser(authUser.getNo());
+		model.addAttribute("authUser", authUser);
+		
+		System.out.println("before:" + authUser);
+		
 		return "user/update";
 	}
+	
+	//@AuthUser UserVo authUser,
+	@Auth("USER")
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String update(
+			@ModelAttribute @Valid UserVo vo, 
+			BindingResult result,
+			@AuthUser UserVo authUser,
+			Model model) {
+		
+		System.out.println("update Process Before:" + vo);
+		vo.setNo(authUser.getNo());
+		
+		userService.update(vo);
+		
+		authUser = userService.getUser(authUser.getNo());
+		model.addAttribute("authUser", authUser);
+		
+		if(result.hasErrors()) {
+			model.addAllAttributes(result.getModel());
+			return "user/update";
+		}
+	
+		System.out.println("update Process After:" + vo);
+		
+		return "redirect:/user/update";
+	}
+	
+//	@RequestMapping(value = "/update", method = RequestMethod.GET)
+//	public String updateForm(UserVo vo, HttpSession session) {
+//		System.out.println("회원정보 수정");
+//		
+//		// 접근 제어
+//		UserVo authUser = (UserVo) session.getAttribute("authUser");
+//		userService.selectList(authUser.getNo());
+//				
+//		return "user/update";
+//	}
 	
 //	@RequestMapping(value = "/updateProcess")
 //	public String update(@ModelAttribute UserVo vo) {
