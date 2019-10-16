@@ -28,7 +28,6 @@ public class DBConfig {
 		return basicDataSource;
 	}
 	
-	
 	@Bean
 	public PlatformTransactionManager transactionManager(DataSource dataSource) {
 		// 하나에 Thread가 만들어지면 하나에 연결이 생성된다.
