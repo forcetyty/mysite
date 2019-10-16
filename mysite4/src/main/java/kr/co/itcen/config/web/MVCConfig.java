@@ -80,8 +80,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		//super.configureMessageConverters(converters);
 		
 		converters.add(mappingJackson2HttpMessage());
-		converters.add(stringHttpMessageConverter());
-		
+		converters.add(stringHttpMessageConverter());	
 	}
 	
 	
