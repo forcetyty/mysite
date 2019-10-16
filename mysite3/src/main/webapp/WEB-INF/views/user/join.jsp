@@ -10,12 +10,8 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/user.css"
-	rel="stylesheet" type="text/css">
-<script
-	src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"
-	type="text/javascript"></script>
+<link href="${pageContext.servletContext.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function() {
 
@@ -68,10 +64,7 @@
 						});
 	});
 </script>
-
-
 </head>
-
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
@@ -96,6 +89,7 @@
 					<label class="block-label" for="email">이메일</label>
 					<form:input path="email" />
 					<input id="btn-check-email" type="button" value="중복확인">
+					
 					<img id="img-checked" style='width: 20px; display: none'
 						src='${pageContext.servletContext.contextPath }/assets/images/check.png' />
 

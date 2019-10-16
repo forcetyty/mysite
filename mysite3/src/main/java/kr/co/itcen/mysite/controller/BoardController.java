@@ -38,7 +38,7 @@ public class BoardController {
 	@Autowired
 	private UserService userService;
 	
-	//답글
+	//답글 no={no }
 	@RequestMapping(value = "/replyform/g_no={g_no}&o_no={o_no}&depth={depth}", method = RequestMethod.GET)
 	public String replyForm(@PathVariable("g_no") long g_no,
 			@PathVariable("o_no") long o_no,

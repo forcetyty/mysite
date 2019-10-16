@@ -21,16 +21,15 @@
 					action="${pageContext.servletContext.contextPath }/user/auth">
 				
 					<label
-						class="block-label" for="email">이메일</label> <input id="email"
+						class="block-label" for="email">이메일</label> 
+						<input id="email"
 						name="email" type="text" value=""> <label
 						class="block-label">패스워드</label> <input name="password"
 						type="password" value="">
 
-
 					<c:if test='${result == "fail" }'>
 						<p>로그인이 실패 했습니다.</p>
 					</c:if>
-
 
 					<input type="submit" value="로그인">
 				</form>
