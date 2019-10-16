@@ -1,0 +1,45 @@
+mysite4 - java config version
+
+1. 메이븐 프로젝트 mysite4 (자식 Module)
+2. POM 설정
+3. web.xml
+4. AppConfig 설정
+	- DBConfing
+	- MyBatis
+
+5. WebConfig 설정
+	- MVCConfig(ViewResolver, MessageConverter, ... )
+	- SecurityConfig(Interceptor, ArgumentResolver ... )
+	- MessageConfig
+	- FileUploadConfig
+
+6. GlobalExceptionHandler
+7. slf4j(Logback)
+
+mysite4(Project Root)
+	|
+	|-- /WEB-INF
+		|-- classes [src/main/java, src/main/resources]
+			|-- kr
+			     |-- co
+			          |-- itcen
+			          |	 |-- mysite
+			          |	      |-- config
+			          |		|-- AppConfig.class
+			          |		|-- WebConfig.class
+                                              |
+			          |-- config
+				    |--- app
+				    |      |--- DBConfig.class
+				    |      |--- MyBatisConfig.class
+				    |      |--- mybatis
+				    |             |---- configuration.xml
+				    |	      |---- mapper
+				    |	                   |---- user.xml 	     
+				    |	                   |---- user.xml
+				    |      
+				    |--- web
+					|---- MVCConfig.class
+					|---- SecurityConfig.class
+					|---- MessageConfig.class
+					|---- FileuploadCounfig.class
