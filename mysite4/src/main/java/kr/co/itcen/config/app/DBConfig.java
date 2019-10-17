@@ -12,6 +12,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+// 20191017 수업내용
 @Configuration					// AOP가 자동으로 설정된다.
 @EnableTransactionManagement 	//Dao와 Service에서 상투적인 코드가 발생하지 않도록 함
 @PropertySource("classpath:kr/co/itcen/config/app/properties/jdbc.properties")
