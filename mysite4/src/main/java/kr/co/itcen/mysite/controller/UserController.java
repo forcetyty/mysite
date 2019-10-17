@@ -135,6 +135,18 @@ public class UserController {
 		return "redirect:/user/update";
 	}
 	
+	@RequestMapping(value = "/auth", method = RequestMethod.POST)
+	public void auth() {
+		
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public void logout() {
+		
+	}
+	
+	
+	
 //	@RequestMapping(value = "/update", method = RequestMethod.GET)
 //	public String updateForm(UserVo vo, HttpSession session) {
 //		System.out.println("회원정보 수정");

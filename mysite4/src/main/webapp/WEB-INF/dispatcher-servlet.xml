@@ -46,12 +46,12 @@
 	<!-- ?쒕툝由?而⑦뀒?대꼫???뷀뤃???쒕툝由??꾩엫 ?몃뱾?? -->
 	<mvc:default-servlet-handler />
 
-	<!-- Interceptor -->
+<!-- 	Interceptor
 	<mvc:interceptors>
 
-		<!-- interceptor 예제 코드 <mvc:interceptor> <mvc:mapping path="/user/**"/> 
+		interceptor 예제 코드 <mvc:interceptor> <mvc:mapping path="/user/**"/> 
 			<bean class="kr.co.itcen.mysite.interceptor.MyInterceptor02"/> 
-			</mvc:interceptor> -->
+			</mvc:interceptor>
 
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />
@@ -72,7 +72,7 @@
 			<bean class="kr.co.itcen.mysite.security.AuthInterceptor" />
 		</mvc:interceptor>
 
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 
 	<!-- View Resolver -->
 	<bean id="viewResolver"

@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Import;
 
 import kr.co.itcen.config.app.DBConfig;
 import kr.co.itcen.config.app.MyBatisConfig;
+import kr.co.itcen.config.web.FileUploadConfig;
 
 @Configuration
 @EnableAspectJAutoProxy
-@ComponentScan({"kr.co.itcen.mysite.repository", "kr.co.itcen.mysite.service", "kr.co.itcen.mysite.aspect"})
+@ComponentScan({"kr.co.itcen.mysite.service", "kr.co.itcen.mysite.repository", "kr.co.itcen.mysite.aspect"})
 @Import({DBConfig.class, MyBatisConfig.class})
 public class AppConfig {
 	
