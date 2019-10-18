@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+<select id="getList" resultType="BoardUserListVo" parameterType="map">
+<![CDATA[
+	select b.no,
+		   b.title,
+		   u.name,
+		   b.hit as hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
+		   b.g_no, b.o_no,
+		   b.depth from user as u, board as b 
+		   where u.no = b.user_no and b.status = 1
+]]>
+ <if test = "kwd.length() > 0">
+ <![CDATA[
+	and ( b.title like concat('%',#{kwd },'%')) or (b.contents like concat('%',#{kwd },'%')) 
+ ]]>
+</if>
+<![CDATA[
+	order by b.g_no desc, b.o_no asc limit #{startNum }, #{endNum }
+]]>
+</select>
+
+<insert id="insertBoard" parameterType="boardvo">
+<![CDATA[
+	insert into board 
+	values(null, #{title }, #{contents }, 0, now(), 
+	(select ifnull(max(bo.g_no)+1, 1) from board as bo), 0, 0, #{user_no }, 1)
+]]>
+</insert>
+
+<select id="viewSelectBoard" resultType="BoardViewVo" parameterType="Long" >
+<![CDATA[
+	select b.no, b.title,
+	 u.name , u.email,
+	  date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
+	   b.hit as hit, b.contents, b.user_no,
+	    b.g_no, b.o_no, b.depth from user as u,
+	     board as b where b.user_no = u.no and b.no = #{no }
+]]>
+</select>
+
+<update id="deleteUpdate" parameterType="Long">
+<![CDATA[
+update board set status = false where no = #{no }
+]]>
+</update>
+
+<update id="updateModify" parameterType="boardvo" >
+<![CDATA[
+update board set title = #{title }, contents = #{contents }, reg_date = now() where no = #{no }
+]]>
+</update>
+
+<update id="hitUpdate" parameterType="Long">
+<![CDATA[
+update board set hit = hit + 1 where no = #{no } 
+]]>
+</update>
+
+
+
+</mapper>

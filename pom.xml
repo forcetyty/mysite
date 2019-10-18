@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.co.itcen</groupId>
 	<artifactId>mysite</artifactId>
@@ -34,6 +35,7 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -53,7 +55,7 @@
 				</excludes>
 			</resource>
 		</resources>
-		
+
 		<plugins>
 
 			<plugin>
@@ -92,6 +94,8 @@
 		<module>mysite2</module>
 		<module>mysite3</module>
 		<module>mysite4</module>
+		<module>mysite5</module>
+		<module>mysite6</module>
 	</modules>
 </project>
 
