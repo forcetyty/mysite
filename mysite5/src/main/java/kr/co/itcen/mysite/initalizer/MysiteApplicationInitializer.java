@@ -8,7 +8,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import ch.qos.logback.core.rolling.helper.FileFilterUtil;
 import kr.co.itcen.mysite.config.AppConfig;
 import kr.co.itcen.mysite.config.WebConfig;
 
