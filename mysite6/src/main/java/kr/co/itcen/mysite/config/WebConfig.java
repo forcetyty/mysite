@@ -28,6 +28,7 @@ import kr.co.itcen.mysite.security.LogoutInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+	//
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessage() {
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder().indentOutput(true)
@@ -40,6 +41,8 @@ public class WebConfig implements WebMvcConfigurer {
 		return converter;
 	}
 
+	//
+	
 	@Bean
 	public StringHttpMessageConverter stringHttpMessageConverter() {
 		StringHttpMessageConverter converter = new StringHttpMessageConverter();
@@ -48,6 +51,8 @@ public class WebConfig implements WebMvcConfigurer {
 
 		return converter;
 	}
+	
+	//
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -57,13 +62,17 @@ public class WebConfig implements WebMvcConfigurer {
 		converters.add(mappingJackson2HttpMessage());
 		converters.add(stringHttpMessageConverter());
 	}
+	
+	//
 
 	public AuthUserHandlerMethodArgumentResolver authUserHandlerMethodArgumentResolver() {
 		return new AuthUserHandlerMethodArgumentResolver();
 	}
+	
+	//
 
 	@Bean
-	public LoginInterceptor loginInterceptro() {
+	public LoginInterceptor loginInterceptror() {
 		return new LoginInterceptor();
 	}
 
@@ -81,7 +90,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
 		// super.addInterceptors(registry);
-		registry.addInterceptor(loginInterceptro()).addPathPatterns("/user/auth");
+		registry.addInterceptor(loginInterceptror()).addPathPatterns("/user/auth");
 		registry.addInterceptor(logoutInterceptor()).addPathPatterns("/user/logout");
 		registry.addInterceptor(authInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/auth")
 				.excludePathPatterns("/user/logout").excludePathPatterns("/assert/**");
