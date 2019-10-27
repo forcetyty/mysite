@@ -9,8 +9,10 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Component
 public class MeasureExecutionTimeAspect {
-	
-	
+
+	// AOP 적용 코드
+	// Aroud / Before / After
+	// 각 시점마다 다르다
 	@Around("execution(* *..controller.*.*(..)) || execution(* *..service.*.*(..)) || execution(* *..repository.*.*(..))")
 	public Object aroundAspect(ProceedingJoinPoint pjp) throws Throwable{
 		//before

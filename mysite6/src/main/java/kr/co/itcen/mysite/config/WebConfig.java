@@ -41,7 +41,6 @@ public class WebConfig implements WebMvcConfigurer {
 		return converter;
 	}
 
-	//
 	
 	@Bean
 	public StringHttpMessageConverter stringHttpMessageConverter() {
@@ -86,6 +85,7 @@ public class WebConfig implements WebMvcConfigurer {
 		return new AuthInterceptor();
 	}
 
+	// Interceptor
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
