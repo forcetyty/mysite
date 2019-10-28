@@ -11,6 +11,7 @@ import kr.co.itcen.mysite.security.Auth;
 @RequestMapping("/admin")	// URL Mapping 작업
 public class AdminController {
 	
+	// Mapping 경로가 매우 짧아짐
 	@RequestMapping("")
 	public String main() {
 		return "admin/main";
