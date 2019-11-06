@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.itcen.mysite.security.Auth;
 
-//오늘 과제!!!
-@Auth(value = "ADMIN")
-@Controller
-@RequestMapping("/admin")
+
+@Auth(value = "ADMIN")		// 인증
+@Controller					// Controller 
+@RequestMapping("/admin")	// URL Mapping 작업
 public class AdminController {
 	
+	// Mapping 경로가 매우 짧아짐
 	@RequestMapping("")
 	public String main() {
 		return "admin/main";

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MyBatisConfig {
 	
+	//Java config
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource,
 			ApplicationContext applicationContext
@@ -21,6 +22,7 @@ public class MyBatisConfig {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:kr/co/itcen/mysite/config/app/mybatis/configuration.xml"));
+		// 설정파일에 대한 정보가 classpath에 담겨 있음
 		
 		
 		return sqlSessionFactoryBean.getObject();

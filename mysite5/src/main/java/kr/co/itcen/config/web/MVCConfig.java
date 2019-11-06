@@ -29,8 +29,10 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 @EnableWebMvc
 public class MVCConfig extends WebMvcConfigurerAdapter {
 	
-	// View Resolver
+
 	@Bean
+	// View Resolver
+	// 경로에서 접미사를 .jsp로 만들어주는 기능
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setPrefix("/WEB-INF/views/");
