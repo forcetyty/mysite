@@ -104,6 +104,7 @@ $(function(){
 						type="submit" tabindex="-1"
 						style="position: absolute; top: -1000px">
 				</form>
+				
 			</div>
 			<div id="dialog-message" title="" style="display: none">
 				<p></p>
