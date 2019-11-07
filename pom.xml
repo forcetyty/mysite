@@ -96,6 +96,7 @@
 		<module>mysite4</module>
 		<module>mysite5</module>
 		<module>mysite6</module>
+		<module>mysite-Ajax</module>
 	</modules>
 </project>
 
