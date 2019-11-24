@@ -11,6 +11,7 @@ public class MainController {
 	
 	@RequestMapping({"", "/main"})
 	public String index() {
+		// main 
 		return "main/index";
 	}
 	
@@ -24,6 +25,7 @@ public class MainController {
 	@RequestMapping("/hello2")
 	public UserVo hello2() {
 		UserVo vo = new UserVo();
+		
 		vo.setNo(10L);
 		vo.setName("안대혁");
 		vo.setEmail("kickscar@gmail.com");

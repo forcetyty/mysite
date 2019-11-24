@@ -32,18 +32,20 @@ public class UserController {
 		return "user/join";
 	}
 
+	// 회원가입 관련 로직
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(
 		@ModelAttribute @Valid UserVo vo,
 		BindingResult result,
 		Model model) {
 		
+		
 		if( result.hasErrors() ) {
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
 		
-		userService.join(vo);
+		userService.join(vo); // 회원가입을 하게 되면 service를 통해서 DAO와 연결
 		return "redirect:/user/joinsuccess";
 	}
 
@@ -52,9 +54,11 @@ public class UserController {
 		return "user/login";
 	}
 
+	// 회원정보 수정
 	@Auth("USER")
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(
+			
 		@AuthUser UserVo authUser, Model model) {
 		authUser = userService.getUser(authUser.getNo());
 		System.out.println(authUser);

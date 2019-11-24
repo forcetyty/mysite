@@ -26,6 +26,7 @@ public class GuestbookController {
 		return "guestbook/list";
 	}
 	
+	// 게스트북 글 삭제 
 	@RequestMapping( value="/delete/{no}", method=RequestMethod.GET )
 	public String deleteform( @PathVariable( "no" ) Long no, Model model ){
 		model.addAttribute( "no", no );
