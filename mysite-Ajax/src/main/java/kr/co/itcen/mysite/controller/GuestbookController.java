@@ -16,6 +16,10 @@ import kr.co.itcen.mysite.vo.GuestbookVo;
 @Controller
 @RequestMapping( "/guestbook" )
 public class GuestbookController {
+	// Guestbook 화면에서 동작하는 Controller
+	
+	// GuestBook Service와 객체와 연결되는 Service
+	// DI를 위해 Autowired라는 기능을 사용
 	@Autowired
 	private GuestbookService guestbookService;
 	
